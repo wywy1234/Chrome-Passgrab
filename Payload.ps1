@@ -78,3 +78,5 @@ Remove-Item (Get-PSreadlineOption).HistorySavePath
 # Deletes contents of recycle bin
 
 Clear-RecycleBin -Force -ErrorAction SilentlyContinue
+
+Exit
